@@ -1,0 +1,83 @@
+import { Scenario } from '../../../types';
+import { metadataScenarios } from './discovery-metadata';
+import { AuthBasicCIMDScenario } from './basic-cimd';
+import {
+  Auth20250326OAuthMetadataBackcompatScenario,
+  Auth20250326OEndpointFallbackScenario
+} from './march-spec-backcompat';
+import {
+  ScopeFromWwwAuthenticateScenario,
+  ScopeFromScopesSupportedScenario,
+  ScopeOmittedWhenUndefinedScenario,
+  ScopeStepUpAuthScenario,
+  ScopeRetryLimitScenario
+} from './scope-handling';
+import {
+  ClientSecretBasicAuthScenario,
+  ClientSecretPostAuthScenario,
+  PublicClientAuthScenario
+} from './token-endpoint-auth';
+import {
+  ClientCredentialsJwtScenario,
+  ClientCredentialsBasicScenario
+} from './client-credentials';
+import { ResourceMismatchScenario } from './resource-mismatch';
+import { PreRegistrationScenario } from './pre-registration';
+import { EnterpriseManagedAuthorizationScenario } from './enterprise-managed-authorization';
+import {
+  OfflineAccessScopeScenario,
+  OfflineAccessNotSupportedScenario
+} from './offline-access';
+import { AuthorizationServerMigrationScenario } from './authorization-server-migration';
+import {
+  IssParameterSupportedScenario,
+  IssParameterNotAdvertisedScenario,
+  IssParameterSupportedMissingScenario,
+  IssParameterWrongIssuerScenario,
+  IssParameterUnexpectedScenario,
+  IssParameterNormalizedVariantScenario,
+  MetadataIssuerMismatchScenario
+} from './issuer-parameter';
+
+// Auth scenarios (required for tier 1)
+export const authScenariosList: Scenario[] = [
+  ...metadataScenarios,
+  new AuthBasicCIMDScenario(),
+  new ScopeFromWwwAuthenticateScenario(),
+  new ScopeFromScopesSupportedScenario(),
+  new ScopeOmittedWhenUndefinedScenario(),
+  new ScopeStepUpAuthScenario(),
+  new ScopeRetryLimitScenario(),
+  new ClientSecretBasicAuthScenario(),
+  new ClientSecretPostAuthScenario(),
+  new PublicClientAuthScenario(),
+  new PreRegistrationScenario()
+];
+
+// Back-compat scenarios (optional - backward compatibility with older spec versions)
+export const backcompatScenariosList: Scenario[] = [
+  new Auth20250326OAuthMetadataBackcompatScenario(),
+  new Auth20250326OEndpointFallbackScenario()
+];
+
+// Extension scenarios (optional for tier 1 - protocol extensions)
+export const extensionScenariosList: Scenario[] = [
+  new ClientCredentialsJwtScenario(),
+  new ClientCredentialsBasicScenario(),
+  new EnterpriseManagedAuthorizationScenario()
+];
+
+// Draft scenarios (informational - not scored for tier assessment)
+export const draftScenariosList: Scenario[] = [
+  new ResourceMismatchScenario(),
+  new OfflineAccessScopeScenario(),
+  new OfflineAccessNotSupportedScenario(),
+  new AuthorizationServerMigrationScenario(),
+  new IssParameterSupportedScenario(),
+  new IssParameterNotAdvertisedScenario(),
+  new IssParameterSupportedMissingScenario(),
+  new IssParameterWrongIssuerScenario(),
+  new IssParameterUnexpectedScenario(),
+  new IssParameterNormalizedVariantScenario(),
+  new MetadataIssuerMismatchScenario()
+];
